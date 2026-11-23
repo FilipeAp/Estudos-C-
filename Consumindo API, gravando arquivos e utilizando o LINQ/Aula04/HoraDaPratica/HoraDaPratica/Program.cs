@@ -1,45 +1,70 @@
 ﻿using HoraDaPratica.Models;
 using System.Text.Json;
-//----------Exercício 3----------
-List<Pessoa> pessoas = new List<Pessoa>();
-
-var continuar = true;
-
-while (continuar)
+//----------Exercício 4----------
+try
 {
-    Console.Clear();
-    Pessoa pessoa = new Pessoa();
-    Console.WriteLine("Insira o nome da pessoa:");
-    pessoa.Nome = Console.ReadLine();
+    string fileName = "Informacoes-de-Pessoas.json";
 
-    Console.WriteLine("Insira a idade da pessoa:");
-    pessoa.Idade = int.Parse(Console.ReadLine());
+    string jsonString = File.ReadAllText(fileName);
 
-    Console.WriteLine("Insira o E-mail da pessoa:");
-    pessoa.Email = Console.ReadLine();
-
-    pessoas.Add(pessoa);
-    Console.Clear();
-    Console.WriteLine("Deseja registrar outra pessoa? Digite 1 pra Sim ou 2 pra Não");
-    int continuarNumero = int.Parse(Console.ReadLine());
-    if (continuarNumero == 1)
+    var pessoas = JsonSerializer.Deserialize<List<Pessoa>>(jsonString)!;
+    int cont = 1;
+    foreach ( var pessoa in pessoas)
     {
-        continuar = true;
+        Console.WriteLine($">>> Pessoa {cont} <<<");
+        Console.WriteLine($"Nome: {pessoa.Nome}");
+        Console.WriteLine($"Idade: {pessoa.Idade}");
+        Console.WriteLine($"E-mail: {pessoa.Email}\n");
+        cont++;
+
     }
-    else if (continuarNumero == 2) { continuar = false; }
-    else { 
-        Console.WriteLine("Opção inexistente."); 
-        continuar = false; 
-    }
+    
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
 }
 
-string json = JsonSerializer.Serialize(pessoas);
+//----------Exercício 3----------
+//List<Pessoa> pessoas = new List<Pessoa>();
 
-string nomeDoArquivo = $"Informacoes-de-Pessoas.json";
+//var continuar = true;
 
-File.WriteAllText(nomeDoArquivo, json);
+//while (continuar)
+//{
+//    Console.Clear();
+//    Pessoa pessoa = new Pessoa();
+//    Console.WriteLine("Insira o nome da pessoa:");
+//    pessoa.Nome = Console.ReadLine();
 
-Console.WriteLine($"A informações foram salvas. Caminho: {Path.GetFullPath(nomeDoArquivo)}");
+//    Console.WriteLine("Insira a idade da pessoa:");
+//    pessoa.Idade = int.Parse(Console.ReadLine());
+
+//    Console.WriteLine("Insira o E-mail da pessoa:");
+//    pessoa.Email = Console.ReadLine();
+
+//    pessoas.Add(pessoa);
+//    Console.Clear();
+//    Console.WriteLine("Deseja registrar outra pessoa? Digite 1 pra Sim ou 2 pra Não");
+//    int continuarNumero = int.Parse(Console.ReadLine());
+//    if (continuarNumero == 1)
+//    {
+//        continuar = true;
+//    }
+//    else if (continuarNumero == 2) { continuar = false; }
+//    else { 
+//        Console.WriteLine("Opção inexistente."); 
+//        continuar = false; 
+//    }
+//}
+
+//string json = JsonSerializer.Serialize(pessoas);
+
+//string nomeDoArquivo = $"Informacoes-de-Pessoas.json";
+
+//File.WriteAllText(nomeDoArquivo, json);
+
+//Console.WriteLine($"A informações foram salvas. Caminho: {Path.GetFullPath(nomeDoArquivo)}");
 
 
 //----------Exercício 2----------

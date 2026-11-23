@@ -29,6 +29,7 @@ internal class Pessoa
         Console.WriteLine($"A informações foram salvas. Caminho: {Path.GetFullPath(nomeDoArquivo)}");
     }
 
+
     public void ExibirDetalhesDaPessoa()
     {
         Console.WriteLine($"Nome: {Nome}");

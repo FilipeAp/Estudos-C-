@@ -1,29 +1,49 @@
 ﻿using HoraDaPratica.Models;
 using System.Text.Json;
+//----------Exercício 5----------
+string fileName = "Informacoes-de-Pessoas.json";
+
+string jsonString = File.ReadAllText(fileName);
+
+var pessoas = JsonSerializer.Deserialize<List<Pessoa>>(jsonString);
+
+Console.WriteLine("Digite a idade que você quer consultar:");
+int idade = int.Parse(Console.ReadLine());
+
+List<string> pessoasComIdadePesquisada = pessoas.Where(p => p.Idade == idade).Select(p => p.Nome).ToList();
+
+Console.Clear();
+Console.WriteLine($"Pessoas com {idade} anos:");
+foreach (var pessoa in pessoasComIdadePesquisada)
+{
+    Console.WriteLine($"- {pessoa}");
+}
+
+
 //----------Exercício 4----------
-try
-{
-    string fileName = "Informacoes-de-Pessoas.json";
+//try
+//{
+//    string fileName = "Informacoes-de-Pessoas.json";
 
-    string jsonString = File.ReadAllText(fileName);
+//    string jsonString = File.ReadAllText(fileName);
 
-    var pessoas = JsonSerializer.Deserialize<List<Pessoa>>(jsonString)!;
-    int cont = 1;
-    foreach ( var pessoa in pessoas)
-    {
-        Console.WriteLine($">>> Pessoa {cont} <<<");
-        Console.WriteLine($"Nome: {pessoa.Nome}");
-        Console.WriteLine($"Idade: {pessoa.Idade}");
-        Console.WriteLine($"E-mail: {pessoa.Email}\n");
-        cont++;
+//    var pessoas = JsonSerializer.Deserialize<List<Pessoa>>(jsonString)!;
+//    int cont = 1;
+//    foreach ( var pessoa in pessoas)
+//    {
+//        Console.WriteLine($">>> Pessoa {cont} <<<");
+//        Console.WriteLine($"Nome: {pessoa.Nome}");
+//        Console.WriteLine($"Idade: {pessoa.Idade}");
+//        Console.WriteLine($"E-mail: {pessoa.Email}\n");
+//        cont++;
 
-    }
-    
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex.Message);
-}
+//    }
+
+//}
+//catch (Exception ex)
+//{
+//    Console.WriteLine(ex.Message);
+//}
 
 //----------Exercício 3----------
 //List<Pessoa> pessoas = new List<Pessoa>();

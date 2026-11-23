@@ -23,7 +23,7 @@
 //    new Livro { Titulo = "1984", Autor = "George Orwell", AnoPublicacao = 1949 }
 //};
 
-//var LivrosPos2000 = livros.Where(livro => livro.AnoPublicacao > 2000).Select(livro => livro.Titulo).OrderBy(titulo => titulo).ToList();
+//var livrosPos2000 = livros.Where(livro => livro.AnoPublicacao > 2000).Select(livro => livro.Titulo).OrderBy(titulo => titulo).ToList();
 
 //foreach (var livro in LivrosPos2000)
 //{

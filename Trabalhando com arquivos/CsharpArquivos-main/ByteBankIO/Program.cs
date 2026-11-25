@@ -1,36 +1,31 @@
 ﻿using ByteBankIO;
+using System.Text;
 
-class Program
+partial class Program
 {
+    //Quando compilarmos e executarmos a aplicação, o programa entenderá que a classe Program está em vários arquivos e pode ser trabalhada de uma forma única. Ela está separada apenas por questões de organização.
     static void Main(string[] args)
     {
         var enderecoDoArquivo = "contas.txt";
-        var numeroDeBytesLidos = -1;
-        
-        var fluxoDoArquivo = new FileStream(enderecoDoArquivo, FileMode.Open); //Variável para guardar o fluxo de dados para que possamos percorrer os bytes que contêm os dados desse documento. O FileStream é uma ferramenta importante para lidar com arquivos. Stream significa "fluxo" em inglês, logo, o FileStream trabalhará com o fluxo de dados de um arquivo. Como parametro passamos o endereço do arquivo e o que faremos como ele, nesse caso abriremos.
 
-        var buffer = new byte[1024]; //1Kb - Buffer trata-se de um array que reutilizamos para guardar informações temporárias.
-
-        
-        while(numeroDeBytesLidos != 0)
+        using (var fluxoDeArquivo = new FileStream(enderecoDoArquivo, FileMode.Open))
         {
-            //retorna o numero de bites lidos. 1° argumento: byte[] array, onde serão armazenados os bytes lidos pelo método, remomamos aqui a ideia de trabalhar com pequenas partes de um documento. 2° argumento: int offset, que delimita o índice em que o método começará a preencher o array. 3° argumento: int count, que informa quantas posições preencher.
-            EscreverBuffer(buffer);
+            var leitor = new StreamReader(fluxoDeArquivo);
+
+            //var linha = leitor.ReadLine(); //como o nome sugere, lerá uma linha do arquivo. Como não especificamos, o leitor.ReadLine selecionará a primeira linha no nosso arquivo e armazenará essa string na variável linha
+            //var texto = leitor.ReadToEnd(); //Com o método ReadToEnd, conseguimos fazer a leitura do arquivo sem precisar lidar com buffer e decodificação de bytes.
+            //var numero = leitor.Read(); //traz o primeiro caractere em byte
+
+            while(!leitor.EndOfStream)
+            {//end of stream significa "fim do fluxo", enquanto não chegarmos ao final do fluxo, vamos ler uma linha e a exibir ao usuário. Aqui os dados não são decodificados de uma vez como no readToEnd. Aqui eles são lidos por partes.
+                var linha = leitor.ReadLine();
+                Console.WriteLine(linha);
+            }
         }
 
-
-
-        
-            
         Console.ReadLine();
+
     }
 
-    static void EscreverBuffer(byte[] buffer)
-    {
-        foreach (var meuByte in buffer)
-        {
-            Console.Write(meuByte);
-            Console.Write(" ");
-        }
-    }
+
 }
